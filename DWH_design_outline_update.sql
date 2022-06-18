@@ -41,19 +41,54 @@ CREATE TABLE [dbo].[ResultsFact] (
   Qual3_Time varchar(255) NOT NULL,
   QualPosition int NOT NULL,
   [Status] varchar(255) NOT NULL,
-  Temperature int NOT NULL,				-- Temperature in degrees Celcius.
-  Wind_speed int NOT NULL,				-- Wind speed in meters/second.
-  Wind_direction varchar(15) NOT NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
+  Temperature float NOT NULL,				-- Temperature in degrees Celcius.
+  Wind_speed float NOT NULL,				-- Wind speed in meters/second.
+  Wind_direction float NOT NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
   -- Weather_type_id: OpenWeatherMaps weather ID. Matching descriptions can be found in the OpenWeatherMap documentation.
-  Cloudiness int NOT NULL,				-- In percentages.
-  Humidity int NOT NULL,				-- In percentages.
-  Air_pressure int NOT NULL,			-- Atmospheric pressure in hPa.
-  Rain_last_hour_in_mm INT NOT NULL,		-- Rainfall in millimeters in the last hour. 
-  Rain_last_3_hours_in_mm INT NOT NULL,		-- Rainfall in millimeters in the last 3 hours.
-  Snow_last_hour_in_mm INT NOT NULL,		-- Snowfall in millimeters in the last hour.,
-  Snow_last_3_hours_in_mm INT NOT NULL,		-- Snowfall in millimeters in the last 3 hours.
+  Cloudiness float NOT NULL,				-- In percentages.
+  Humidity float NOT NULL,				-- In percentages.
+  Air_pressure float NOT NULL,			-- Atmospheric pressure in hPa.
+  Precipitation float NOT NULL,
   PRIMARY KEY (ResultId)
-);
+  );
+
+	--CREATE TABLE [dbo].[ResultsFact] (
+	--  ResultId int NOT NULL,
+	--  RaceId int NOT NULL,
+	--  DriverId int NOT NULL,
+	--  ConstructorId int NOT NULL,
+	--  Number int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	--  Grid int NOT NULL,
+	--  Position int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	----  "positionText" varchar(255) NOT NULL DEFAULT '',
+	----  PositionOrder int NOT NULL DEFAULT '0',
+	--  DriverPoints float NOT NULL,
+	--  Laps int NOT NULL, --Number of completed laps  
+	--  [Time] varchar(255) NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	--  Milliseconds int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	--  FastestLap int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	--  [Rank] int NOT NULL,
+	--  FastestLapTime varchar(255) NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	--  FastestLapSpeed varchar(255) NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+	--  DateId int NOT NULL,
+	--  Qual1_Time varchar(255) NOT NULL,
+	--  Qual2_Time varchar(255) NOT NULL,
+	--  Qual3_Time varchar(255) NOT NULL,
+	--  QualPosition int NOT NULL,
+	--  [Status] varchar(255) NOT NULL,
+	--  Temperature int NOT NULL,				-- Temperature in degrees Celcius.
+	--  Wind_speed int NOT NULL,				-- Wind speed in meters/second.
+	--  Wind_direction varchar(15) NOT NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
+	--  -- Weather_type_id: OpenWeatherMaps weather ID. Matching descriptions can be found in the OpenWeatherMap documentation.
+	--  Cloudiness int NOT NULL,				-- In percentages.
+	--  Humidity int NOT NULL,				-- In percentages.
+	--  Air_pressure int NOT NULL,			-- Atmospheric pressure in hPa.
+	--  Rain_last_hour_in_mm INT NOT NULL,		-- Rainfall in millimeters in the last hour. 
+	--  Rain_last_3_hours_in_mm INT NOT NULL,		-- Rainfall in millimeters in the last 3 hours.
+	--  Snow_last_hour_in_mm INT NOT NULL,		-- Snowfall in millimeters in the last hour.,
+	--  Snow_last_3_hours_in_mm INT NOT NULL,		-- Snowfall in millimeters in the last 3 hours.
+	--  PRIMARY KEY (ResultId)
+	--);
 
 
 -- dimension tables
@@ -249,33 +284,33 @@ CREATE TABLE [dbo].[ResultsFactStaging] (
   RaceId int NOT NULL,
   DriverId int NOT NULL,
   ConstructorId int NOT NULL,
-  Number int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+  Number int NULL, -- default null - trzeba bedzie kombinowac w etl
   Grid int NOT NULL,
-  Position int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
+  Position int NULL, -- default null - trzeba bedzie kombinowac w etl
 --  "positionText" varchar(255) NOT NULL DEFAULT '',
 --  PositionOrder int NOT NULL DEFAULT '0',
-  DriverPoints float NOT NULL,
-  Laps int NOT NULL, --Number of completed laps  
-  [Time] varchar(255) NOT NULL, -- default null - trzeba bedzie kombinowac w etl
-  Milliseconds int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
-  FastestLap int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
-  [Rank] int NOT NULL,
-  FastestLapTime varchar(255) NOT NULL, -- default null - trzeba bedzie kombinowac w etl
-  FastestLapSpeed varchar(255) NOT NULL, -- default null - trzeba bedzie kombinowac w etl
-  DateId int NOT NULL,
-  Qual1_Time varchar(255) NOT NULL,
-  Qual2_Time varchar(255) NOT NULL,
-  Qual3_Time varchar(255) NOT NULL,
-  QualPosition int NOT NULL,
-  [Status] varchar(255) NOT NULL,
-  Temperature int NOT NULL,				-- Temperature in degrees Celcius.
-  Wind_speed int NOT NULL,				-- Wind speed in meters/second.
-  Wind_direction varchar(15) NOT NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
+  DriverPoints float NULL,
+  Laps int NULL, --Number of completed laps  
+  [Time] varchar(255) NULL, -- default null - trzeba bedzie kombinowac w etl
+  Milliseconds int NULL, -- default null - trzeba bedzie kombinowac w etl
+  FastestLap int NULL, -- default null - trzeba bedzie kombinowac w etl
+  [Rank] int NULL,
+  FastestLapTime varchar(255)  NULL, -- default null - trzeba bedzie kombinowac w etl
+  FastestLapSpeed varchar(255)  NULL, -- default null - trzeba bedzie kombinowac w etl
+  Date [date]  NULL,
+  Qual1_Time varchar(255)  NULL,
+  Qual2_Time varchar(255)  NULL,
+  Qual3_Time varchar(255)  NULL,
+  QualPosition int  NULL,
+  [Status] varchar(255)  NULL,
+  Temperature varchar(50) NULL,				-- Temperature in degrees Celcius.
+  Wind_speed varchar(50) NULL,				-- Wind speed in meters/second.
+  Wind_direction varchar(50) NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
   -- Weather_type_id: OpenWeatherMaps weather ID. Matching descriptions can be found in the OpenWeatherMap documentation.
-  Cloudiness int NOT NULL,				-- In percentages.
-  Humidity float NOT NULL,				-- In percentages.
-  Air_pressure int NOT NULL,			-- Atmospheric pressure in hPa.
-  Precipitation float NOT NULL
+  Cloudiness varchar(50) NULL,				-- In percentages.
+  Humidity varchar(50) NULL,				-- In percentages.
+  Air_pressure varchar(50) NULL,			-- Atmospheric pressure in hPa.
+  Precipitation varchar(50) NULL
 --  Rain_last_hour_in_mm INT NOT NULL,		-- Rainfall in millimeters in the last hour. 
 --  Rain_last_3_hours_in_mm INT NOT NULL,		-- Rainfall in millimeters in the last 3 hours.
 --  Snow_last_hour_in_mm INT NOT NULL,		-- Snowfall in millimeters in the last hour.,
