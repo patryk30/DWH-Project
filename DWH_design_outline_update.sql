@@ -41,14 +41,14 @@ CREATE TABLE [dbo].[ResultsFact] (
   Qual3_Time varchar(255) NOT NULL,
   QualPosition int NOT NULL,
   [Status] varchar(255) NOT NULL,
-  Temperature float NOT NULL,				-- Temperature in degrees Celcius.
-  Wind_speed float NOT NULL,				-- Wind speed in meters/second.
-  Wind_direction float NOT NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
+  Temperature decimal(18,1) NOT NULL,				-- Temperature in degrees Celcius.
+  Wind_speed decimal(18,1) NOT NULL,				-- Wind speed in meters/second.
+  Wind_direction decimal(18,1) NOT NULL,	-- Wind direction degrees. 0 = North, 90 = East, 180 = South, 270 = West.
   -- Weather_type_id: OpenWeatherMaps weather ID. Matching descriptions can be found in the OpenWeatherMap documentation.
-  Cloudiness float NOT NULL,				-- In percentages.
-  Humidity float NOT NULL,				-- In percentages.
-  Air_pressure float NOT NULL,			-- Atmospheric pressure in hPa.
-  Precipitation float NOT NULL,
+  Cloudiness decimal(18,1) NOT NULL,				-- In percentages.
+  Humidity decimal(18,2) NOT NULL,				-- In percentages.
+  Air_pressure decimal(18,1) NOT NULL,			-- Atmospheric pressure in hPa.
+  Precipitation decimal(18,2) NOT NULL,
   PRIMARY KEY (ResultId)
   );
 
