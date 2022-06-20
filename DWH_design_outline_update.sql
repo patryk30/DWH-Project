@@ -18,9 +18,11 @@ GO
 --ewentualnie dodalbym q1,q2,q3 z tabeli qualifying
 -- mozna dodac jeszcze contructor_points
 CREATE TABLE [dbo].[ResultsFact] (
+  NewResultId int IDENTITY(1,1) NOT NULL,
   ResultId int NOT NULL,
   RaceId int NOT NULL,
   DriverId int NOT NULL,
+--  DriverSKID int NOT NULL,
   ConstructorId int NOT NULL,
   Number int NOT NULL, -- default null - trzeba bedzie kombinowac w etl
   Grid int NOT NULL,
@@ -49,7 +51,7 @@ CREATE TABLE [dbo].[ResultsFact] (
   Humidity decimal(18,2) NOT NULL,				-- In percentages.
   Air_pressure decimal(18,1) NOT NULL,			-- Atmospheric pressure in hPa.
   Precipitation decimal(18,2) NOT NULL,
-  PRIMARY KEY (ResultId)
+  PRIMARY KEY (NewResultId)
   );
 
 	--CREATE TABLE [dbo].[ResultsFact] (
@@ -261,9 +263,9 @@ ALTER TABLE [dbo].[RacesDimension]  WITH CHECK ADD FOREIGN KEY([RaceDateId])
 REFERENCES [dbo].[DateDimension] ([DateID])
 GO
 
-ALTER TABLE [dbo].[RacesDimension]  WITH CHECK ADD FOREIGN KEY([SprintDateId])
-REFERENCES [dbo].[DateDimension] ([DateID])
-GO
+--ALTER TABLE [dbo].[RacesDimension]  WITH CHECK ADD FOREIGN KEY([SprintDateId])
+--REFERENCES [dbo].[DateDimension] ([DateID])
+--GO
 
 
 -- Korekty zmiennych:
